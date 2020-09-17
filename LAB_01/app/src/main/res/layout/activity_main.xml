@@ -4,132 +4,122 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="onGetFilesDirButtonClick"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/getExtCachesDirButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GETEXTERNALCACHESDIR"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.156"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getExtFilesDirButton" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/getExtStoragePublicDirButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="GETEXTERNALSTORAGEPUBLICDIRECTORY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.302"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getExtStorageDirButton" />
+        <TextView
+            android:id="@+id/absoluteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Absolute:"
+            android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/getExtStorageDirButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GETEXTERNALSTORAGEDIRECTORY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getExtCachesDirButton" />
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Name:"
+            android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/getExtFilesDirButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="GETEXTERNALFILESDIR"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getCacheDirButton" />
+        <TextView
+            android:id="@+id/pathTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Path:"
+            android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/getCacheDirButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GETCACHEDIR"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getFilesDirButton" />
+        <TextView
+            android:id="@+id/rwTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Read/Write:"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="95dp"
-        android:layout_height="32dp"
-        android:layout_margin="10dp"
-        android:text="External"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        <TextView
+            android:id="@+id/externalTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="External:"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="128dp"
-        android:layout_height="31dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="8dp"
-        android:text="Read/Write"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        <Button
+            android:id="@+id/getFilesDirButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#2196F3"
+            android:onClick="onGetFilesDirButtonClick"
+            android:text="GETFILESDIR"
+            android:textColor="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="95dp"
-        android:layout_height="32dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="8dp"
-        android:text="Path"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        <Button
+            android:id="@+id/getCacheDirButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#2196F3"
+            android:onClick="onGetCacheDirButtonClick"
+            android:text="GETCACHEDIR"
+            android:textColor="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="93dp"
-        android:layout_height="34dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="8dp"
-        android:text="Name"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.091"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <Button
+            android:id="@+id/getExtFilesDirButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#2196F3"
+            android:onClick="onGetExtFilesDirButtonClick"
+            android:text="GETEXTERNALFILESDIR"
+            android:textColor="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="25dp"
-        android:text="Absolute"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/getExtCacheDirButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#2196F3"
+            android:onClick="onGetExtCacheDirButtonClick"
+            android:text="GETEXTERNALCACHEDIR"
+            android:textColor="#FFFFFF" />
 
-    <Button
-        android:id="@+id/getFilesDirButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
-        android:text="GETFILESDIR"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.108"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        <Button
+            android:id="@+id/getExtStorageDirectoryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#2196F3"
+            android:onClick="onGetExtStorageDirectoryButtonClick"
+            android:text="GETEXTERNALSTORAGEDIRECTORY"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/getExtStoragePublicDirectoryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#2196F3"
+            android:onClick="onGetExtStoragePublicDirectoryButtonClick"
+            android:text="GETEXTERNALSTORAGEPUBLICDIRECTORY"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

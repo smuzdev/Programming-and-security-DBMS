@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void CreateFile(String fname) {
         try {
+            //Log.d("Log_02", "TryCatch");
             File file = new File(Environment.getExternalStorageDirectory(), fname);
             file.createNewFile();
             Log.d("Log_02", "File " + fname + " has been successfully created.");

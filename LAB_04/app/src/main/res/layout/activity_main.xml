@@ -5,7 +5,6 @@
     android:id="@+id/enterButton"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="onClickEnterButton"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -46,6 +45,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="#8BC34A"
+            android:onClick="onClickEnterButton"
             android:text="ENTER"
             android:textSize="16sp" />
 

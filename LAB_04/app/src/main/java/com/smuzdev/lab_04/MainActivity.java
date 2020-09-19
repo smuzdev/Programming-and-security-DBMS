@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             //Log.d("Log_02", "TryCatch");
             File file = new File(Environment.getExternalStorageDirectory(), fname);
             file.createNewFile();
+            Toast.makeText(this, "New file has been created.", Toast.LENGTH_LONG).show();
             Log.d("Log_02", "File " + fname + " has been successfully created.");
         } catch (IOException e) {
             Log.d("Log_02", "Error: " + e.getMessage() + ". File " + fname + " was not created.");
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         File file = new File(Environment.getExternalStorageDirectory(), "BaseLab.txt");
         Log.d("Log_02", "Path:" + Environment.getExternalStorageDirectory());
+        Toast.makeText(this, "Information successfully written.", Toast.LENGTH_LONG).show();
 
         try {
             FileWriter fw = new FileWriter(file, true);
@@ -83,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
             bw.write(FirstName.getText().toString() + " " + LastName.getText().toString() + "\r\n");
             bw.close();
             fw.close();
+            FirstName.setText("");
+            LastName.setText("");
         } catch (IOException e) {
             Log.d("Log_02", "File entry error.");
         }

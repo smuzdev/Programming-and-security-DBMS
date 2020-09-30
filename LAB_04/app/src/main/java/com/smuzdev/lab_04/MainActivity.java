@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         boolean isFileExist = false;
         File f = new File(Environment.getExternalStorageDirectory(), fname);
         if (isFileExist = f.exists()) Log.d("Log_02", "File " + fname + " exists.");
-        else Log.d("Log_02", "File " + fname + " not found.");
+        else Log.d("Log_02 ", "File " + fname + " not found.");
         return isFileExist;
     }
 
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         ad.show();
     }
 
+
     public void CreateFile(String fname) {
         try {
             //Log.d("Log_02", "TryCatch");
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Log_02", "Error: " + e.getMessage() + ". File " + fname + " was not created.");
         }
     }
-
     public void onClickEnterButton(View view) {
         TextView FirstName = findViewById(R.id.firstName);
         TextView LastName = findViewById(R.id.lastName);

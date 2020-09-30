@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LAB_05</string>
+    <string name="key">Key:</string>
+    <string name="value">Value:</string>
+    <string name="hint_key">Enter the key (Max 5 symbols)</string>
+    <string name="hint_value">Enter the value (Max 10 symbols)</string>
+    <string name="hint_obtained_value">Obtained value</string>
 </resources>

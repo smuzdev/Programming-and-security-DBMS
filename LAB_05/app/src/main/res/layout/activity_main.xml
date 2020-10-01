@@ -44,7 +44,7 @@
             android:hint="@string/hint_value" />
 
         <Button
-            android:id="@+id/saveButton"
+            android:id="@+id/saveToHashtableButton"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
@@ -89,6 +89,15 @@
             android:ems="10"
             android:enabled="false"
             android:hint="@string/hint_obtained_value" />
+
+        <Button
+            android:id="@+id/printHashtableButton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#FFA343"
+            android:text="Print hashtable"
+            android:textSize="18sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

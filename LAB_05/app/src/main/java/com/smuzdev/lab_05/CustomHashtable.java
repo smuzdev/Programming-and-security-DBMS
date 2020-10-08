@@ -1,5 +1,7 @@
 package com.smuzdev.lab_05;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class CustomHashtable<K, V> {
@@ -63,7 +65,7 @@ public class CustomHashtable<K, V> {
         int index = getIndexForKey(key);
         LinkedListNode<K, V> current = array.get(index);
         while (current != null) {
-            if (current.key == key) {
+            if (current.key.equals(key)) {
                 return current;
             }
             current = current.next;
@@ -78,9 +80,7 @@ public class CustomHashtable<K, V> {
     public void printTable() {
         for (int i = 0; i < array.size(); i++) {
             String s = array.get(i) == null ? "" : array.get(i).printForward();
-            System.out.println(i + ": " + s);
+            Log.d("Events",i + ": " + s);
         }
-    }{
-        array.add(null);
     }
 }

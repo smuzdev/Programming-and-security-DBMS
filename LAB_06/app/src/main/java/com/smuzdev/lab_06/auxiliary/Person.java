@@ -1,7 +1,7 @@
 package com.smuzdev.lab_06.auxiliary;
 
 public class Person {
-    String name, surname, phone, birthDate;
+    public String name, surname, phone, birthDate;
 
     public Person (String name, String surname, String phone, String birthDate) {
         this.name = name;

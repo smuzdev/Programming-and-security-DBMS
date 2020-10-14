@@ -93,7 +93,7 @@ public class Json {
             e.printStackTrace();
         }
 
-        Log.d(TAG, "DeSerialized successful. Result:");
+        Log.d("LAB_06", "DeSerialized successful. Result:");
         for (Person person:arrayList) {
             Log.d("LAB_06", person.toString());
         }

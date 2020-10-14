@@ -8,6 +8,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -24,6 +26,7 @@ import com.smuzdev.lab_06.auxiliary.RequestPermissions;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity  implements DatePickerDialog.OnDateSetListener {
@@ -31,7 +34,9 @@ public class MainActivity extends AppCompatActivity  implements DatePickerDialog
     TextInputEditText inputName, inputSurname;
     EditText inputPhone;
     TextView birthDateTextView;
-    Button createButton, selectDateButton;
+    Button createButton, selectDateButton, printButton, findButton, deleteButton;
+    AutoCompleteTextView findContactAutoComplete;
+    ArrayList<Person> contactsList;
     Context context = this;
     Activity activity = this;
 
@@ -55,6 +60,17 @@ public class MainActivity extends AppCompatActivity  implements DatePickerDialog
         birthDateTextView = findViewById(R.id.birthDate);
         selectDateButton = findViewById(R.id.selectDateButton);
         createButton = findViewById(R.id.createButton);
+        printButton = findViewById(R.id.printButton);
+        findButton = findViewById(R.id.findButton);
+        deleteButton = findViewById(R.id.deleteButton);
+        findContactAutoComplete = findViewById(R.id.findContact);
+
+        final TextView findPhone = findViewById(R.id.findPhone);
+        final TextView findName = findViewById(R.id.findName);
+        final TextView findSurname = findViewById(R.id.findSurname);
+        final TextView findBirthDate = findViewById(R.id.findBirthDate);
+
+        setupAutoCompleteTextView();
 
         selectDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +82,7 @@ public class MainActivity extends AppCompatActivity  implements DatePickerDialog
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 String name = inputName.getText().toString();
                 String surname = inputSurname.getText().toString();
                 String phone = inputPhone.getText().toString();
@@ -85,6 +101,32 @@ public class MainActivity extends AppCompatActivity  implements DatePickerDialog
             }
         });
 
+        printButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Json.Deserialize();
+            }
+        });
+
+        findButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String autoTextInput = findContactAutoComplete.getText().toString();
+                contactsList = Json.Deserialize();
+
+                for (Person person: contactsList) {
+
+                    if(person.birthDate.equals(autoTextInput) || person.phone.equals(autoTextInput) || person.surname.equals(autoTextInput) || person.name.equals(autoTextInput)) {
+                        Toast.makeText(getApplicationContext(), "Result has been found", Toast.LENGTH_LONG).show();
+                        findName.setText("Name: " + person.name);
+                        findSurname.setText("Surname: " + person.surname);
+                        findPhone.setText("Phone: " + person.phone);
+                        findBirthDate.setText("Birth date: " + person.birthDate);
+                    }
+                }
+
+            }
+        });
 
     }
 
@@ -98,6 +140,22 @@ public class MainActivity extends AppCompatActivity  implements DatePickerDialog
 
         TextView selectedDate = findViewById(R.id.birthDate);
         selectedDate.setText(currentDateString);
+    }
+
+    public void setupAutoCompleteTextView() {
+        contactsList = Json.Deserialize();
+        ArrayList<String> autoCompleteString = new ArrayList<String>();
+
+        for (Person person: contactsList) {
+            autoCompleteString.add(person.name);
+            autoCompleteString.add(person.phone);
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this, android.R.layout.select_dialog_item, autoCompleteString);
+
+        findContactAutoComplete.setThreshold(1);
+        findContactAutoComplete.setAdapter(adapter);
     }
 
 }

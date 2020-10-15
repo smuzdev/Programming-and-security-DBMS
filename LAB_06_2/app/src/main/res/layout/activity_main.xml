@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/find_field_bg"
+        android:layout_margin="15dp"
+        android:padding="15dp">
+
+        <Button
+            android:id="@+id/printButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text = "Print"
+            android:background="@drawable/btn"
+            android:textColor="#000"
+            android:textSize="22sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            />
+
+        <AutoCompleteTextView
+            android:id="@+id/findContactAutoComlete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/findField"/>
+
+        <Button
+            android:id="@+id/findContactButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text = "Find"
+            android:background="@drawable/btn"
+            android:textColor="#000"
+            android:textSize="22sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            />
+
+        <TextView
+            android:id="@+id/foundResultTextView"
+            android:layout_width="match_parent"
+            android:textSize="22sp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,15 +58,25 @@ public class MainActivity extends AppCompatActivity {
                 String autoTextInput = findContactAutoComplete.getText().toString();
                 Log.i(TAG, "User try to find person with date:" + autoTextInput);
                 contactsList = Json.Deserialize();
+                String name = "";
+                String surname = "";
+                String phone = "";
+                String birthDate = "";
 
                 for (Person person : contactsList) {
                     if (person.birthDate.equals(autoTextInput)) {
                         Toast.makeText(getApplicationContext(), "Result has been found", Toast.LENGTH_LONG).show();
+
+                        name += person.name + ", ";
+                        surname += person.surname + ", ";
+                        phone += person.phone + ", ";
+                        birthDate += person.birthDate + ", ";
+
                         foundResultTextView.setText(
-                                "Name: " + person.name + "\n" +
-                                        "Surname: " + person.surname + "\n" +
-                                        "Phone: " + person.phone + "\n" +
-                                        "Birth date: " + person.phone + "\n \n"
+                                "Name: " + name + "\n" +
+                                        "Surname: " + surname + "\n" +
+                                        "Phone: " + phone + "\n" +
+                                        "Birth date: " + birthDate + "\n \n"
                         );
 
                     }

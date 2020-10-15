@@ -91,22 +91,19 @@ public class MainActivity extends AppCompatActivity  implements DatePickerDialog
 
                 for (Person person : contactsList) {
                     if (person.phone.equals(phone)) {
-                        Toast.makeText(context, "syc", Toast.LENGTH_LONG).show();
-                    } else {
-                        // Public (external storage) serialization
-                        Json.Serialize(new Person(name, surname, phone, birthDate));
-
-                        // Private (internal storage) serialization
-                        // data/com.smuzdev.lab6/
-                        String path = getExternalFilesDir(null).getAbsolutePath() + "/json.json";
-                        File file = new File(path);
-                        Json.Serialize(file, new Person(name, surname, phone, birthDate));
-
-                        Toast.makeText(getBaseContext(), "Successfully created", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Person with this phone exists", Toast.LENGTH_LONG).show();
+                        return;
                     }
-
                 }
-            }
+
+                    Json.Serialize(new Person(name, surname, phone, birthDate));
+
+                    String path = getExternalFilesDir(null).getAbsolutePath() + "/json.json";
+                    File file = new File(path);
+                    Json.Serialize(file, new Person(name, surname, phone, birthDate));
+
+                    Toast.makeText(getBaseContext(), "Successfully created", Toast.LENGTH_LONG).show();
+                }
         });
 
         printButton.setOnClickListener(new View.OnClickListener() {
@@ -121,15 +118,24 @@ public class MainActivity extends AppCompatActivity  implements DatePickerDialog
             public void onClick(View view) {
                 String autoTextInput = findContactAutoComplete.getText().toString();
                 contactsList = Json.Deserialize();
-
+                String name = "";
+                String surname = "";
+                String phone = "";
+                String birthDate = "";
                 for (Person person: contactsList) {
 
-                    if(person.birthDate.equals(autoTextInput) || person.phone.equals(autoTextInput) || person.surname.equals(autoTextInput) || person.name.equals(autoTextInput)) {
+                    if(person.name.equals(autoTextInput) || person.phone.equals(autoTextInput)) {
                         Toast.makeText(getApplicationContext(), "Result has been found", Toast.LENGTH_LONG).show();
-                        findName.setText("Name: " + person.name);
-                        findSurname.setText("Surname: " + person.surname);
-                        findPhone.setText("Phone: " + person.phone);
-                        findBirthDate.setText("Birth date: " + person.birthDate);
+
+                        name += person.name + ", ";
+                        surname += person.surname + ", ";
+                        phone += person.phone + ", ";
+                        birthDate += person.birthDate + ", ";
+                        findName.setText("Name: " + name);
+                        findSurname.setText("Surname: " + surname);
+                        findPhone.setText("Phone: " + phone);
+                        findBirthDate.setText("Birth date: " + birthDate);
+
                     }
                 }
 

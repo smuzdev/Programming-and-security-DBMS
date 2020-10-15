@@ -26,6 +26,7 @@ import com.smuzdev.lab_06.auxiliary.RequestPermissions;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -85,19 +86,26 @@ public class MainActivity extends AppCompatActivity  implements DatePickerDialog
             public void onClick(View view) {
                 String name = inputName.getText().toString();
                 String surname = inputSurname.getText().toString();
-                String phone = inputPhone.getText().toString();
                 String birthDate = birthDateTextView.getText().toString();
+                String phone = inputPhone.getText().toString();
 
-                // Public (external storage) serialization
-                Json.Serialize(new Person(name, surname, phone, birthDate));
+                for (Person person : contactsList) {
+                    if (person.phone.equals(phone)) {
+                        Toast.makeText(context, "syc", Toast.LENGTH_LONG).show();
+                    } else {
+                        // Public (external storage) serialization
+                        Json.Serialize(new Person(name, surname, phone, birthDate));
 
-                // Private (internal storage) serialization
-                // data/com.smuzdev.lab6/
-                String path = getExternalFilesDir(null).getAbsolutePath() + "/json.json";
-                File file = new File(path);
-                Json.Serialize(file, new Person(name, surname, phone, birthDate));
+                        // Private (internal storage) serialization
+                        // data/com.smuzdev.lab6/
+                        String path = getExternalFilesDir(null).getAbsolutePath() + "/json.json";
+                        File file = new File(path);
+                        Json.Serialize(file, new Person(name, surname, phone, birthDate));
 
-                Toast.makeText(getBaseContext() , "Successfully created", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "Successfully created", Toast.LENGTH_LONG).show();
+                    }
+
+                }
             }
         });
 
@@ -136,8 +144,8 @@ public class MainActivity extends AppCompatActivity  implements DatePickerDialog
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDateString = DateFormat.getDateInstance().format(calendar.getTime());
-
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDateString = sdf.format(calendar.getTime());
         TextView selectedDate = findViewById(R.id.birthDate);
         selectedDate.setText(currentDateString);
     }

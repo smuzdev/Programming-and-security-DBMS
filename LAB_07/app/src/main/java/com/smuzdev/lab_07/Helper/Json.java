@@ -17,86 +17,43 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Json {
-    static File file = new File(Environment.getExternalStorageDirectory(), "Lab.txt");
+    private static final String TAG = "LAB_07_D";
+    static File file = new File(Environment.getExternalStorageDirectory(), "Notes.txt");
 
-    //Serialize to default file (getExternalStorageDirectory)
-    public static void Serialize(Note note) {
 
-        ArrayList<Note> arrayList = new ArrayList<>();
-        arrayList = Json.Deserialize();
-
+    public static void Serialize(Notes notes) {
         ObjectMapper objectMapper = new ObjectMapper();
-        //Set pretty printing of json
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        //Define map which will be converted to JSON
-        arrayList.add(note);
 
-        //1. Convert List of Person objects to JSON
         try {
-            objectMapper.writeValue(file, arrayList);
+            objectMapper.writeValue(file, notes);
+            Log.d(TAG, "Serialized successful.");
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Log.d("LAB_D" , "Serialized successful.");
-
     }
 
-    //Serialize method overloading (+file in params)
-    public static void Serialize(File file, Note note) {
+    public static Notes Deserialize() {
 
-        ArrayList<Note> arrayList = new ArrayList<>();
-        arrayList = Json.Deserialize();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        //Set pretty printing of json
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        //Define map which will be converted to JSON
-        arrayList.add(note);
-
-        //1. Convert List of Person objects to JSON
-        try {
-            objectMapper.writeValue(file, arrayList);
-
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Log.d("LAB_D", "Serialized to file:" + file.getAbsolutePath() +  "successful.");
-
-
-    }
-
-    public static ArrayList<Note> Deserialize() {
-
-        ArrayList<Note> arrayList = new ArrayList<Note>();
+        Notes notes = new Notes();
         ObjectMapper objectMapper = new ObjectMapper();
 
         //Set pretty printing of json
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-
-        TypeReference<ArrayList<Note>> mapType = new TypeReference<ArrayList<Note>>() {};
 
         try {
             FileReader fr = new FileReader(file);
-            arrayList = objectMapper.readValue(fr, mapType);
+            notes = objectMapper.readValue(fr, Notes.class);
+            Log.d(TAG, "DeSerialized successful. Result:");
             fr.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Log.d("LAB_D", "DeSerialized successful. Result:");
-        for (Note note:arrayList) {
-            Log.d("LAB_D", note.toString());
-        }
-
-        return arrayList;
+        return notes;
     }
 }

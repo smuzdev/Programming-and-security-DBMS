@@ -3,9 +3,9 @@ package com.smuzdev.lab_07.Models;
 import java.io.Serializable;
 
 public class Note implements Serializable {
-    String date;
-    String title;
-    String description;
+    public String date;
+    public String title;
+    public String description;
 
     public Note(String date, String title, String description) {
         this.date = date;

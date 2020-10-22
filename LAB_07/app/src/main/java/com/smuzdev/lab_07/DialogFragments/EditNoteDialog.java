@@ -52,13 +52,14 @@ public class EditNoteDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String newTitle = editTitle.getText().toString();
                         String newDescription = editDescription.getText().toString();
-                        listener.applyEditNoteTexts(selectedNotePositon, newTitle, newDescription, notes);
+                        listener.applyEditNoteTexts(selectedNotePositon, newTitle, newDescription);
                     }
                 })
                 .setNeutralButton("delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         notes.notesArrayList.remove(selectedNotePositon);
+                        listener.applyNotes(notes);
                     }
                 });
 
@@ -80,6 +81,7 @@ public class EditNoteDialog extends AppCompatDialogFragment {
     }
 
     public interface EditNoteDialogListener {
-        void applyEditNoteTexts(Integer id, String newTitle, String newDescription, Notes notes);
+        void applyEditNoteTexts(Integer id, String newTitle, String newDescription);
+        void applyNotes(Notes notes);
     }
 }

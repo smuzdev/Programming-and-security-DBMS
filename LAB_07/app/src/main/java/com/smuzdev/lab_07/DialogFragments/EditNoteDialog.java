@@ -58,7 +58,9 @@ public class EditNoteDialog extends AppCompatDialogFragment {
                 .setNeutralButton("delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        notes.notesArrayList.remove(selectedNotePositon);
+                        Note note = new Note();
+                        note = notes.notesArrayList.get(selectedNotePositon);
+                        notes.notesArrayList.remove(note);
                         listener.applyNotes(notes);
                     }
                 });

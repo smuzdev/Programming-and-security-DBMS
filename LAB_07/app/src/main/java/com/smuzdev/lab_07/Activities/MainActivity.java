@@ -1,5 +1,6 @@
 package com.smuzdev.lab_07.Activities;
 
+import androidx.annotation.FontRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -87,6 +88,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     @Override
+    protected void onResume(){
+        super.onResume();
+        notes = Json.Deserialize();
+        printAllNotes();
+        Log.d("LR7", "onResume");
+    }
+
+    @Override
     protected  void onStop() {
         super.onStop();
         Json.Serialize(notes);
@@ -97,8 +106,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         addNoteDialog.show(getSupportFragmentManager(), "add note dialog");
     }
 
-    public void openEditNoteDialog() {
-        EditNoteDialog editNoteDialog = new EditNoteDialog();
+    public void openEditNoteDialog(Integer id) {
+        EditNoteDialog editNoteDialog = new EditNoteDialog(id);
         editNoteDialog.show(getSupportFragmentManager(), "edit note dialog");
     }
 
@@ -135,18 +144,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
-                openEditNoteDialog();
-                try {
-                    HashMap<String, String> entry = arrayList.get(position);
-
-                    for (Note note : notes.notesArrayList) {
-                        if (note.title.equals(entry.get("Title")) && note.description.equals(entry.get("Description"))) {
-
-                        }
-                    }
-                }
-                catch (Exception e) {
-                }
+                openEditNoteDialog(position);
             }
         });
     }
@@ -185,13 +183,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     public void applyAddNoteTexts(String title, String description) {
-        notes.notesArrayList.add(new Note(currentDateString, title, description));
+        notes.notesArrayList.add(new Note(notes.notesArrayList.size(), currentDateString, title, description));
         listViewAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void applyEditNoteTexts(String newTitle, String newDescription) {
-
+    public void applyEditNoteTexts(Integer id, String newTitle, String newDescription, Notes notes) {
+        Note note = notes.notesArrayList.get(id);
+        note.title = newTitle;
+        note.description = newDescription;
+        this.notes = notes;
+        printAllNotes();
+        listViewAdapter.notifyDataSetChanged();
     }
 
 }

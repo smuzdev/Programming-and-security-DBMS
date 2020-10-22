@@ -43,7 +43,7 @@ public class AddNoteDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String title = addTitle.getText().toString();
                         String description = addDescription.getText().toString();
-                        listener.applyTexts(title, description);
+                        listener.applyAddNoteTexts(title, description);
                     }
                 });
 
@@ -65,6 +65,6 @@ public class AddNoteDialog extends AppCompatDialogFragment {
     }
 
     public interface AddNoteDialogListener {
-        void applyTexts(String title, String description);
+        void applyAddNoteTexts(String title, String description);
     }
 }

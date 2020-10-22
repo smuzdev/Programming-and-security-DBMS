@@ -184,9 +184,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     @Override
-    public void applyTexts(String title, String description) {
+    public void applyAddNoteTexts(String title, String description) {
         notes.notesArrayList.add(new Note(currentDateString, title, description));
         listViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void applyEditNoteTexts(String newTitle, String newDescription) {
+
     }
 
 }

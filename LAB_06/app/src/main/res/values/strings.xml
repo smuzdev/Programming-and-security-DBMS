@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">LAB_06</string>
+    <string name="findField">Enter name or phone number</string>
+</resources>

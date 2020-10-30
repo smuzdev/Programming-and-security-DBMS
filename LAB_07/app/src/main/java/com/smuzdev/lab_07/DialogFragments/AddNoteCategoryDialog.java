@@ -1,29 +1,24 @@
 package com.smuzdev.lab_07.DialogFragments;
 
 import android.app.AlertDialog;
-import android.app.ApplicationErrorReport;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.smuzdev.lab_07.Activities.MainActivity;
 import com.smuzdev.lab_07.R;
 
-public class AddNoteDialog extends AppCompatDialogFragment {
-    private EditText addTitle;
-    private EditText addDescription;
-    private Spinner addNoteCategory;
-    private AddNoteDialogListener listener;
+public class AddNoteCategoryDialog extends AppCompatDialogFragment {
+
+    private EditText addCategory;
+    private AddNoteCategoryDialog.AddNoteDialogListener listener;
 
     @NonNull
     @Override
@@ -31,29 +26,25 @@ public class AddNoteDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder((getActivity()));
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_add_note, null);
+        View view = inflater.inflate(R.layout.dialog_add_category, null);
 
         builder.setView(view)
-                .setTitle("New note")
+                .setTitle("Add note category")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String title = addTitle.getText().toString();
-                        String category = addNoteCategory.getSelectedItem().toString();
-                        String description = addDescription.getText().toString();
-                        listener.applyAddNoteTexts(title, category, description);
+                        String category = addCategory.getText().toString();
+                        listener.applyAddNoteCategoryTexts(category);
                     }
                 });
 
-        addTitle = view.findViewById(R.id.addTitle);
-        addNoteCategory = view.findViewById(R.id.addNoteCategory);
-        addDescription = view.findViewById(R.id.addDescription);
+        addCategory = view.findViewById(R.id.addCategory);
 
         return builder.create();
     }
@@ -62,14 +53,15 @@ public class AddNoteDialog extends AppCompatDialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            listener = (AddNoteDialogListener) context;
+            listener = (AddNoteCategoryDialog.AddNoteDialogListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "must implement AddNoteDialogListener");
+            throw new ClassCastException(context.toString() + "must implement AddNoteCategoryDialogListener");
         }
 
     }
 
     public interface AddNoteDialogListener {
-        void applyAddNoteTexts(String title, String category, String description);
+        void applyAddNoteCategoryTexts(String category);
     }
 }
+

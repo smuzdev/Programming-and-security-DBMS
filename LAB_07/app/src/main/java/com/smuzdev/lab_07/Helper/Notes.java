@@ -22,4 +22,6 @@ public class Notes {
             Log.d("LAB_D", note.toString());
         }
     }
+
+    public ArrayList<String> categoriesArrayList = new ArrayList<>();
 }

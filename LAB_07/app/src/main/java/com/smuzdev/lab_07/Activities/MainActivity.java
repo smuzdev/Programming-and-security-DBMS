@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -17,30 +19,41 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.smuzdev.lab_07.DialogFragments.AddNoteCategoryDialog;
 import com.smuzdev.lab_07.DialogFragments.AddNoteDialog;
 import com.smuzdev.lab_07.DialogFragments.DatePickerFragment;
 import com.smuzdev.lab_07.DialogFragments.EditNoteDialog;
 import com.smuzdev.lab_07.Helper.Json;
 import com.smuzdev.lab_07.Helper.Notes;
 import com.smuzdev.lab_07.Helper.RequestPermissions;
+import com.smuzdev.lab_07.Helper.XmlSerialization;
 import com.smuzdev.lab_07.Models.Note;
 import com.smuzdev.lab_07.R;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.RuntimePermissions;
+
+@RuntimePermissions
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
-        AddNoteDialog.AddNoteDialogListener, EditNoteDialog.EditNoteDialogListener {
+        AddNoteDialog.AddNoteDialogListener, EditNoteDialog.EditNoteDialogListener,
+        AddNoteCategoryDialog.AddNoteDialogListener {
 
     TextView date;
     Button selectDateButton, clearDateButton;
@@ -51,12 +64,34 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     ListView listNotes;
     Notes notes;
     SimpleAdapter listViewAdapter;
-    String TAG = "LAB_07_D";
+    String TAG = "LAB07_D";
+    XmlSerialization xmlSerialization;
+    ArrayAdapter<String> spinnerCategoryAdapter;
+
+    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) //annotation of PermissionsDispatcher library
+    void DeserializeNotes() {
+        xmlSerialization = new XmlSerialization(new File(getApplicationContext().getFilesDir(), "Notes.xml"));
+        notes = xmlSerialization.Deserialize();
+    }
+
+    //if user denied permission to external storage
+    @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void DeserializeNotesDenied() {
+        Toast.makeText(this, "You should allow access to File storage for work with APP. After close app Notes will be DELETED;", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MainActivityPermissionsDispatcher.DeserializeNotesWithPermissionCheck(this);
+    }
+
+    @SuppressLint("NeedOnRequestPermissionsResult")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     @Override
@@ -94,18 +129,29 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
 
+        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
+        spinnerCategoryAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, notes.categoriesArrayList);
+        // Определяем разметку для использования при выборе элемента
+        spinnerCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
     }
 
     @Override
     protected  void onStop() {
         super.onStop();
-        Json.Serialize(notes);
+        xmlSerialization.Serialize(notes);
     }
 
     public void openAddNoteDialog() {
         AddNoteDialog addNoteDialog = new AddNoteDialog();
         addNoteDialog.show(getSupportFragmentManager(), "add note dialog");
     }
+
+    public void openAddCategoryDialog() {
+        AddNoteCategoryDialog addNoteCategoryDialog = new AddNoteCategoryDialog();
+        addNoteCategoryDialog.show(getSupportFragmentManager(), "add note category dialog");
+    }
+
 
     public void openEditNoteDialog(Integer id) {
         EditNoteDialog editNoteDialog = new EditNoteDialog(id);
@@ -209,7 +255,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     openAddNoteDialog();
                 } else {
                     Toast.makeText(this, "Date should be selected!", Toast.LENGTH_LONG).show();
-                }
+                } break;
+            case R.id.add_category:
+                    openAddCategoryDialog();
+                    break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -239,11 +288,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     @Override
-    public void applyAddNoteTexts(String title, String description) {
-        notes.notesArrayList.add(new Note(notes.notesArrayList.size(), currentDateString, title, description));
+    public void applyAddNoteTexts(String title, String category, String description) {
+        notes.notesArrayList.add(new Note(notes.notesArrayList.size(), currentDateString, title, category, description));
         printAllNotes();
         listViewAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void applyAddNoteCategoryTexts(String category) {
+        notes.categoriesArrayList.add(category);
+        spinnerCategoryAdapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public void applyEditNoteTexts(Integer id, String newTitle, String newDescription) {

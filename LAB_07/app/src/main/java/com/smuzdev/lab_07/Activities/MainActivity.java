@@ -52,11 +52,12 @@ import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
-        AddNoteDialog.AddNoteDialogListener, EditNoteDialog.EditNoteDialogListener,
+        EditNoteDialog.EditNoteDialogListener, AddNoteDialog.AddNoteDialogListener,
         AddNoteCategoryDialog.AddNoteDialogListener {
 
     TextView date;
     Button selectDateButton, clearDateButton;
+    Spinner addNoteCategory_spinner;
     Context context = this;
     Activity activity = this;
     String currentDateString;
@@ -84,14 +85,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MainActivityPermissionsDispatcher.DeserializeNotesWithPermissionCheck(this);
+//        MainActivityPermissionsDispatcher.DeserializeNotesWithPermissionCheck(this);
     }
 
     @SuppressLint("NeedOnRequestPermissionsResult")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+//        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     @Override
@@ -129,10 +130,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
 
-        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
-        spinnerCategoryAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, notes.categoriesArrayList);
-        // Определяем разметку для использования при выборе элемента
-        spinnerCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
     }
 
@@ -287,17 +284,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
     }
 
-    @Override
-    public void applyAddNoteTexts(String title, String category, String description) {
-        notes.notesArrayList.add(new Note(notes.notesArrayList.size(), currentDateString, title, category, description));
-        printAllNotes();
-        listViewAdapter.notifyDataSetChanged();
-    }
 
     @Override
     public void applyAddNoteCategoryTexts(String category) {
         notes.categoriesArrayList.add(category);
-        spinnerCategoryAdapter.notifyDataSetChanged();
+        Json.Serialize(notes);
     }
 
 
@@ -318,4 +309,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         listViewAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void applyAddNoteTexts(String title, String category, String description) {
+        notes.notesArrayList.add(new Note(notes.notesArrayList.size(), currentDateString, title, category, description));
+        printAllNotes();
+        listViewAdapter.notifyDataSetChanged();
+    }
 }

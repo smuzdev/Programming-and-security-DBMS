@@ -8,17 +8,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.smuzdev.lab_07.Helper.Json;
+import com.smuzdev.lab_07.Helper.Notes;
 import com.smuzdev.lab_07.R;
 
 public class AddNoteCategoryDialog extends AppCompatDialogFragment {
 
     private EditText addCategory;
     private AddNoteCategoryDialog.AddNoteDialogListener listener;
+    private Spinner spinner;
 
     @NonNull
     @Override
@@ -41,6 +45,7 @@ public class AddNoteCategoryDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String category = addCategory.getText().toString();
                         listener.applyAddNoteCategoryTexts(category);
+
                     }
                 });
 

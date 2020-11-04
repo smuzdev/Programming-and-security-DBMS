@@ -30,7 +30,6 @@ public class AddNoteDialog extends AppCompatDialogFragment {
     private Spinner addNoteCategory;
     private AddNoteDialogListener listener;
 
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class AddNoteDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.dialog_add_note, null);
 
         addTitle = view.findViewById(R.id.addTitle);
-        addNoteCategory = view.findViewById(R.id.addNoteCategory_sp);
+        addNoteCategory = view.findViewById(R.id.addNoteCategorySpiner);
         addDescription = view.findViewById(R.id.addDescription);
 
         Notes notes = Json.Deserialize();

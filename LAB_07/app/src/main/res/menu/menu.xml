@@ -5,6 +5,7 @@
     <item
         android:id="@+id/add_category"
         android:enabled="true"
+        android:icon="@drawable/add_category"
         android:title="Add category"
         app:showAsAction="always" />
 

@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     TextView date;
     Button selectDateButton, clearDateButton;
-    Spinner addNoteCategory_spinner;
     Context context = this;
     Activity activity = this;
     String currentDateString;
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     SimpleAdapter listViewAdapter;
     String TAG = "LAB07_D";
     XmlSerialization xmlSerialization;
-    ArrayAdapter<String> spinnerCategoryAdapter;
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) //annotation of PermissionsDispatcher library
     void DeserializeNotes() {
@@ -183,8 +181,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     text1.setTextSize(20);
                     return view;
                 }
-
-                ;
             };
             listNotes.setAdapter(listViewAdapter);
 
@@ -222,8 +218,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     text1.setTextSize(20);
                     return view;
                 }
-
-                ;
             };
             listNotes.setAdapter(listViewAdapter);
 
@@ -287,16 +281,22 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     public void applyAddNoteCategoryTexts(String category) {
-        notes.categoriesArrayList.add(category);
+        if (notes.categoriesArrayList.size() < 5) {
+            notes.categoriesArrayList.add(category);
+        } else {
+            Toast.makeText(this, "Maximum count of categories is 5", Toast.LENGTH_SHORT).show();
+        }
         Json.Serialize(notes);
     }
 
 
     @Override
-    public void applyEditNoteTexts(Integer id, String newTitle, String newDescription) {
+    public void applyEditNoteTexts(Integer id, String newTitle, String newCategory, String newDescription) {
         Note note = notes.notesArrayList.get(id);
         note.title = newTitle;
+        note.category = newCategory;
         note.description = newDescription;
+        Json.Serialize(notes);
         printAllNotes();
         listViewAdapter.notifyDataSetChanged();
     }
@@ -311,7 +311,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     public void applyAddNoteTexts(String title, String category, String description) {
-        notes.notesArrayList.add(new Note(notes.notesArrayList.size(), currentDateString, title, category, description));
+        if (notes.notesArrayList.size() < 20) {
+            notes.notesArrayList.add(new Note(notes.notesArrayList.size(), currentDateString, title, category, description));
+        } else {
+            Toast.makeText(this, "There is too much notes. Delete one and try again", Toast.LENGTH_LONG).show();
+        }
+        Json.Serialize(notes);
         printAllNotes();
         listViewAdapter.notifyDataSetChanged();
     }

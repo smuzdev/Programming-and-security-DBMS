@@ -1,5 +1,6 @@
 package com.smuzdev.lab_07.DialogFragments;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -15,10 +16,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.smuzdev.lab_07.Activities.MainActivityPermissionsDispatcher;
 import com.smuzdev.lab_07.Helper.Json;
 import com.smuzdev.lab_07.Helper.Notes;
+import com.smuzdev.lab_07.Helper.XmlSerialization;
 import com.smuzdev.lab_07.Models.Note;
 import com.smuzdev.lab_07.R;
+
+import java.io.File;
+
+import permissions.dispatcher.NeedsPermission;
 
 public class EditNoteDialog extends AppCompatDialogFragment {
     private EditText editTitle;
@@ -26,6 +33,7 @@ public class EditNoteDialog extends AppCompatDialogFragment {
     private Spinner editNoteCategory;
     private EditNoteDialogListener listener;
     Integer selectedNotePositon;
+    XmlSerialization xmlSerialization;
     Notes notes;
 
     public EditNoteDialog(Integer selectedNotePositon) {
@@ -36,7 +44,8 @@ public class EditNoteDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         notes = new Notes();
-        notes = Json.Deserialize();
+        //notes = Json.Deserialize();
+        notes = xmlSerialization.Deserialize();
 
         AlertDialog.Builder builder = new AlertDialog.Builder((getActivity()));
 

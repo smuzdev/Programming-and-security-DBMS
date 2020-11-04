@@ -16,12 +16,12 @@ public class Note implements Serializable {
         this.description = description;
     }
 
-    public Note(Integer id, String date, String title, String description, String category) {
+    public Note(Integer id, String date, String title, String category, String description) {
         this.id = id;
         this.date = date;
         this.title = title;
-        this.description = description;
         this.category = category;
+        this.description = description;
     }
 
     public Note() {
@@ -34,8 +34,8 @@ public class Note implements Serializable {
                 "id='" + id + '\'' +
                 "date='" + date + '\'' +
                 ", title='" + title + '\'' +
-                ", description='" + description +
                 ", category='" + description +
+                ", description='" + description +
                 '}';
     }
 }

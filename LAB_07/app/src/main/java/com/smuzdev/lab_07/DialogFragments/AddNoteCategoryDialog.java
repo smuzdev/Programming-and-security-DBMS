@@ -33,6 +33,7 @@ public class AddNoteCategoryDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.dialog_add_category, null);
 
         builder.setView(view)
+
                 .setTitle("Add note category")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override

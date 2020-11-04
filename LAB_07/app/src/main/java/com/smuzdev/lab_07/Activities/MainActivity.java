@@ -10,8 +10,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +43,7 @@ import com.smuzdev.lab_07.Models.Note;
 import com.smuzdev.lab_07.R;
 
 import java.io.File;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -83,14 +86,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        MainActivityPermissionsDispatcher.DeserializeNotesWithPermissionCheck(this);
+        MainActivityPermissionsDispatcher.DeserializeNotesWithPermissionCheck(this);
     }
 
     @SuppressLint("NeedOnRequestPermissionsResult")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     @Override
@@ -108,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         listNotes = findViewById(R.id.listNotes);
 
         notes = new Notes();
-        notes = Json.Deserialize();
+        notes = xmlSerialization.Deserialize();
 
         printAllNotes();
 
@@ -250,6 +253,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             case R.id.add_category:
                     openAddCategoryDialog();
                     break;
+            case R.id.filter_notes:
+                Intent intent = new Intent(this, FilterNotes.class);
+                //intent.putExtra("notes", notes);
+                startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -286,7 +294,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         } else {
             Toast.makeText(this, "Maximum count of categories is 5", Toast.LENGTH_SHORT).show();
         }
-        Json.Serialize(notes);
+        //Json.Serialize(notes);
+        xmlSerialization.Serialize(notes);
     }
 
 
@@ -296,7 +305,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         note.title = newTitle;
         note.category = newCategory;
         note.description = newDescription;
-        Json.Serialize(notes);
+        xmlSerialization.Serialize(notes);
+        //Json.Serialize(notes);
         printAllNotes();
         listViewAdapter.notifyDataSetChanged();
     }
@@ -304,7 +314,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     @Override
     public void applyNotes(Notes notes) {
         this.notes = notes;
-        Json.Serialize(notes);
+        //Json.Serialize(notes);
+        xmlSerialization.Serialize(this.notes);
         printAllNotes();
         listViewAdapter.notifyDataSetChanged();
     }
@@ -316,7 +327,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         } else {
             Toast.makeText(this, "There is too much notes. Delete one and try again", Toast.LENGTH_LONG).show();
         }
-        Json.Serialize(notes);
+        xmlSerialization.Serialize(notes);
+        //Json.Serialize(notes);
         printAllNotes();
         listViewAdapter.notifyDataSetChanged();
     }

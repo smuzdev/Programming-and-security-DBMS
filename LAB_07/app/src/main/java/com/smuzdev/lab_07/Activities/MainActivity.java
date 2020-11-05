@@ -258,7 +258,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 intent.putExtra("notes", notes);
                 startActivity(intent);
                 break;
+            case R.id.delete_all:
+                notes.categoriesArrayList.clear();
+                notes.notesArrayList.clear();
+                break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -289,7 +294,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     public void applyAddNoteCategoryTexts(String category) {
-        if (notes.categoriesArrayList.size() < 10) {
+        if (notes.categoriesArrayList.size() < 5) {
             notes.categoriesArrayList.add(category);
         } else {
             Toast.makeText(this, "Maximum count of categories is 5", Toast.LENGTH_SHORT).show();

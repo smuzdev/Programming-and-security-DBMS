@@ -21,4 +21,11 @@
         android:icon="@drawable/add"
         android:title="Add note"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/delete_all"
+        android:enabled="true"
+        android:icon="@drawable/delete"
+        app:showAsAction="always" />
+
 </menu>

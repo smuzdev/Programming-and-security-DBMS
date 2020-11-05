@@ -15,7 +15,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 public class XsltTransform extends Application {
-    private static final String TAG = "LAB8_DEBUG" ;
+    private static final String TAG = "LAB8_D" ;
 
     File File_XSLT_TEMPLETE = new File(Environment.getExternalStorageDirectory(), "XSLT_TEMPLATE.xml");
     File File_XML_MARKUP;
@@ -35,17 +35,17 @@ public class XsltTransform extends Application {
             "  <body>\n" +
             "    <h2>My Notes</h2>\n" +
             "    <table border=\"1\">\n" +
-            "      <tr bgcolor=\"#9acd32\">\n" +
-            "        <th>Category</th>\n" +
+            "      <tr>\n" +
             "        <th>Title</th>\n" +
-            "        <th>Note</th>\n" +
+            "        <th>Category</th>\n" +
+            "        <th>Description</th>\n" +
             "        <th>Date</th>\n" +
             "      </tr>\n" +
-            "      <xsl:for-each select=\"com.example.lab__8.DataModels.Notes/notesArrayList/com.example.lab__8.DataModels.Note\">\n" +
+            "      <xsl:for-each select=\"com.smuzdev.lab_07.Helper.Notes/notesArrayList/com.smuzdev.lab_07.Models.Note\">\n" +
             "        <tr>\n" +
-            "          <td><xsl:value-of select=\"category\"/></td>\n" +
             "          <td><xsl:value-of select=\"title\"/></td>\n" +
-            "          <td><xsl:value-of select=\"body\"/></td>\n" +
+            "          <td><xsl:value-of select=\"category\"/></td>\n" +
+            "          <td><xsl:value-of select=\"description\"/></td>\n" +
             "          <td><xsl:value-of select=\"date\"/></td>\n" +
             "        </tr>\n" +
             "      </xsl:for-each>\n" +

@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         xmlSerialization.Serialize(notes);
     }
 
-    public void openAddNoteDialog() {
-        AddNoteDialog addNoteDialog = new AddNoteDialog();
+    public void openAddNoteDialog(Notes notes) {
+        AddNoteDialog addNoteDialog = new AddNoteDialog(notes);
         addNoteDialog.show(getSupportFragmentManager(), "add note dialog");
     }
 
@@ -151,8 +151,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
 
-    public void openEditNoteDialog(Integer id) {
-        EditNoteDialog editNoteDialog = new EditNoteDialog(id);
+    public void openEditNoteDialog(Integer id, Notes notes) {
+        EditNoteDialog editNoteDialog = new EditNoteDialog(id, notes);
         editNoteDialog.show(getSupportFragmentManager(), "edit note dialog");
     }
 
@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             listNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                    openEditNoteDialog(position);
+                    openEditNoteDialog(position, notes);
                 }
             });
         } else {
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             listNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                    openEditNoteDialog(position);
+                    openEditNoteDialog(position, notes);
                 }
             });
         }
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         switch (item.getItemId()) {
             case R.id.add_note:
                 if (currentDateString != null) {
-                    openAddNoteDialog();
+                    openAddNoteDialog(notes);
                 } else {
                     Toast.makeText(this, "Date should be selected!", Toast.LENGTH_LONG).show();
                 } break;
@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     break;
             case R.id.filter_notes:
                 Intent intent = new Intent(this, FilterNotes.class);
-                //intent.putExtra("notes", notes);
+                intent.putExtra("notes", notes);
                 startActivity(intent);
                 break;
         }
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     public void applyAddNoteCategoryTexts(String category) {
-        if (notes.categoriesArrayList.size() < 5) {
+        if (notes.categoriesArrayList.size() < 10) {
             notes.categoriesArrayList.add(category);
         } else {
             Toast.makeText(this, "Maximum count of categories is 5", Toast.LENGTH_SHORT).show();

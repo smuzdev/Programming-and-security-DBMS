@@ -4,17 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.smuzdev.lab_07.Helper.Notes;
@@ -51,6 +54,7 @@ public class FilterNotes extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
 
         notes = new Notes();
         Intent intent = getIntent();
@@ -92,12 +96,12 @@ public class FilterNotes extends AppCompatActivity {
             map = new HashMap<>();
             map.put("Category", note.category);
             map.put("Title", note.title);
-            map.put("Note", note.description);
+            map.put("Description", note.description);
             arrayList.add(map);
         }
 
         adapterForListView = new SimpleAdapter(this, arrayList, android.R.layout.simple_list_item_2,
-                new String[]{"Title", "Note"},
+                new String[]{"Title", "Description"},
                 new int[]{android.R.id.text1, android.R.id.text2});
         filter_activity_lv_notes.setAdapter(adapterForListView);
 
@@ -113,14 +117,14 @@ public class FilterNotes extends AppCompatActivity {
                 map = new HashMap<>();
                 map.put("Category", note.category);
                 map.put("Title", note.title);
-                map.put("Note", note.description);
+                map.put("Description", note.description);
                 arrayList.add(map);
             }
 
         }
 
         adapterForListView = new SimpleAdapter(this, arrayList, android.R.layout.simple_list_item_2,
-                new String[]{"Title", "Note"},
+                new String[]{"Title", "Description"},
                 new int[]{android.R.id.text1, android.R.id.text2});
         filter_activity_lv_notes.setAdapter(adapterForListView);
     }

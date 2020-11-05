@@ -1,5 +1,7 @@
 package com.smuzdev.lab_07.DialogFragments;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ApplicationErrorReport;
 import android.app.Dialog;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,15 +23,26 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.smuzdev.lab_07.Activities.MainActivity;
 import com.smuzdev.lab_07.Helper.Json;
 import com.smuzdev.lab_07.Helper.Notes;
+import com.smuzdev.lab_07.Helper.XmlSerialization;
 import com.smuzdev.lab_07.R;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnPermissionDenied;
 
 public class AddNoteDialog extends AppCompatDialogFragment {
     private EditText addTitle;
     private EditText addDescription;
     private Spinner addNoteCategory;
+    XmlSerialization xmlSerialization;
     private AddNoteDialogListener listener;
+    Notes notes;
+
+    public AddNoteDialog(Notes notes) {
+        this.notes = notes;
+    }
 
     @NonNull
     @Override
@@ -42,7 +56,7 @@ public class AddNoteDialog extends AppCompatDialogFragment {
         addNoteCategory = view.findViewById(R.id.addNoteCategorySpiner);
         addDescription = view.findViewById(R.id.addDescription);
 
-        Notes notes = Json.Deserialize();
+        //Notes notes = xmlSerialization.Deserialize();
 
         if (addNoteCategory != null) {
             // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner

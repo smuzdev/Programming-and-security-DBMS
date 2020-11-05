@@ -22,7 +22,6 @@ public class AddNoteCategoryDialog extends AppCompatDialogFragment {
 
     private EditText addCategory;
     private AddNoteCategoryDialog.AddNoteDialogListener listener;
-    private Spinner spinner;
 
     @NonNull
     @Override

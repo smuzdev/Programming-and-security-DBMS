@@ -57,7 +57,6 @@ import permissions.dispatcher.RuntimePermissions;
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
         EditNoteDialog.EditNoteDialogListener, AddNoteDialog.AddNoteDialogListener,
         AddNoteCategoryDialog.AddNoteDialogListener {
-
     TextView date;
     Button selectDateButton, clearDateButton;
     Context context = this;
@@ -285,8 +284,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             for (Note note:notes.notesArrayList) {
                 if(note.date.equals(selectedDate)) {
                     matchedNotes.notesArrayList.add(note);
+
                 }
             }
+
             printAllNotes();
         }
     }
@@ -327,9 +328,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     public void applyAddNoteTexts(String title, String category, String description) {
+        Integer countOfNotesOnPickedDate = 0;
+        for (Note note:notes.notesArrayList) {
+            if(note.date.equals("2020.11.06")) {
+                countOfNotesOnPickedDate++;
+            }
+        }
+
         if (notes.notesArrayList.size() < 20) {
-            notes.notesArrayList.add(new Note(notes.notesArrayList.size(), currentDateString, title, category, description));
-        } else {
+            if (countOfNotesOnPickedDate < 3 ) {
+                notes.notesArrayList.add(new Note(notes.notesArrayList.size(), currentDateString, title, category, description));
+            }
+            } else {
             Toast.makeText(this, "There is too much notes. Delete one and try again", Toast.LENGTH_LONG).show();
         }
         xmlSerialization.Serialize(notes);

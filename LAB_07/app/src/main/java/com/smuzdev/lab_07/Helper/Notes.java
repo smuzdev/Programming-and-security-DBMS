@@ -25,4 +25,5 @@ public class Notes implements Serializable {
     }
 
     public ArrayList<String> categoriesArrayList = new ArrayList<>();
+    //public ArrayList<String> matchedNotes = new ArrayList<>();
 }

@@ -24,6 +24,7 @@ import com.smuzdev.lab_07.Activities.MainActivity;
 import com.smuzdev.lab_07.Helper.Json;
 import com.smuzdev.lab_07.Helper.Notes;
 import com.smuzdev.lab_07.Helper.XmlSerialization;
+import com.smuzdev.lab_07.Models.Note;
 import com.smuzdev.lab_07.R;
 
 import java.io.File;

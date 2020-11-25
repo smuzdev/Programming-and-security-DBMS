@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/showGroups"
+        android:icon="@drawable/group"
+        app:showAsAction="always"
+        android:title="@string/students" />
+
+    <item
+        android:id="@+id/addStudents"
+        android:title="@string/add"
+        android:icon="@drawable/add"
+        app:showAsAction="always" />
+</menu>

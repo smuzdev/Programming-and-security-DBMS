@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 } while (cursor.moveToNext());
             }
             if (head.isEmpty())
-                head.add("Not specidied");
+                head.add("Not specified");
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, head);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerHead.setAdapter(adapter);

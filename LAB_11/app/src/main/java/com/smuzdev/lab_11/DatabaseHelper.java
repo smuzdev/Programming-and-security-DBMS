@@ -46,18 +46,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static String VIEW_GROUP_STATISTICS = "GROUP_STATISTICS";
     static String VIEW_FACULTY_STATISTICS = "FACULTY_STATISTICS";
 
+    static String INDEX_PROGRESS_EXAMDATE = TABLE_PROGRESS_NAME + "_" + PROGRESS_COLUMN_EXAMDATE;
+    static String INDEX_GROUP_FACULTY = TABLE_GROUP_NAME + "_" + GROUP_COLUMN_FACULTY;
+
+    static String TRIGGER_MORE_SIX_STUDENTS = "MORE_SIX_STUDENTS";
+    static String TRIGGER_LESS_THREE_STUDENTS = "LESS_THREE_STUDENTS";
+    static String TRIGGER_FOR_CREATE_VIEW = "TRIGGER_FOR_CREATE_VIEW";
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, SCHEMA);
     }
 
+    private static DatabaseHelper instance = null;
+
+    static DatabaseHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new DatabaseHelper(context);
+        }
+        return instance;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUP_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROGRESS_NAME);
+        db.execSQL("DROP TRIGGER IF EXISTS " + TRIGGER_LESS_THREE_STUDENTS);
         createTableSubject(db);
         createTableFaculty(db);
         createTableStudent(db);
         createTableGroup(db);
         createTableProgress(db);
+        createIndex(db);
+        createTrigger(db);
     }
 
     private void createTableSubject(SQLiteDatabase db) {
@@ -147,6 +168,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("INSERT INTO " + TABLE_STUDENT_NAME +
                     " (" + STUDENT_COLUMN_IDGROUP + "," + STUDENT_COLUMN_NAME + "," + STUDENT_COLUMN_BIRTHDATE + "," + STUDENT_COLUMN_ADDRESS + ") " +
                     " VALUES (5,'Руслан','12.09.2000','ул. Скорины 51-30');");
+            db.execSQL("INSERT INTO " + TABLE_STUDENT_NAME +
+                    " (" + STUDENT_COLUMN_IDGROUP + "," + STUDENT_COLUMN_NAME + "," + STUDENT_COLUMN_BIRTHDATE + "," + STUDENT_COLUMN_ADDRESS + ") " +
+                    " VALUES (1,'Александра','15.06.2001','ул. Белорусская 21');");
+            db.execSQL("INSERT INTO " + TABLE_STUDENT_NAME +
+                    " (" + STUDENT_COLUMN_IDGROUP + "," + STUDENT_COLUMN_NAME + "," + STUDENT_COLUMN_BIRTHDATE + "," + STUDENT_COLUMN_ADDRESS + ") " +
+                    " VALUES (1,'Анна','02.12.2001','ул. Белорусская 21');");
+            db.execSQL("INSERT INTO " + TABLE_STUDENT_NAME +
+                    " (" + STUDENT_COLUMN_IDGROUP + "," + STUDENT_COLUMN_NAME + "," + STUDENT_COLUMN_BIRTHDATE + "," + STUDENT_COLUMN_ADDRESS + ") " +
+                    " VALUES (1,'Иван','15.12.2001','ул. Белорусская 21');");
+            db.execSQL("INSERT INTO " + TABLE_STUDENT_NAME +
+                    " (" + STUDENT_COLUMN_IDGROUP + "," + STUDENT_COLUMN_NAME + "," + STUDENT_COLUMN_BIRTHDATE + "," + STUDENT_COLUMN_ADDRESS + ") " +
+                    " VALUES (2,'Алексей','25.09.1999','ул. Аграрная 29-12');");
+            db.execSQL("INSERT INTO " + TABLE_STUDENT_NAME +
+                    " (" + STUDENT_COLUMN_IDGROUP + "," + STUDENT_COLUMN_NAME + "," + STUDENT_COLUMN_BIRTHDATE + "," + STUDENT_COLUMN_ADDRESS + ") " +
+                    " VALUES (2,'Петр','15.05.1999','ул. Аграрная 29-12');");
         }
     }
 
@@ -230,6 +266,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    private void createIndex(SQLiteDatabase db) {
+        db.execSQL("CREATE INDEX IF NOT EXISTS " + INDEX_PROGRESS_EXAMDATE +
+                " ON " + TABLE_PROGRESS_NAME + " (" + PROGRESS_COLUMN_EXAMDATE + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS " + INDEX_GROUP_FACULTY +
+                " ON " + TABLE_GROUP_NAME + " (" + GROUP_COLUMN_FACULTY + ")");
+    }
+
+
+    //INSERT INTO STUDENT (IDGROUP, NAME, BIRTHDATE, ADDRESS) VALUES(1,'TEST','TEST','TEST')
+    //DELETE FROM STUDENT WHERE IDSTUDENT= 3
+
+    private void createTrigger(SQLiteDatabase db) {
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS " + TRIGGER_MORE_SIX_STUDENTS +
+                " BEFORE INSERT ON " + TABLE_STUDENT_NAME +
+                " Begin select RAISE (ABORT,'Не может быть больше шести студентов') WHERE (SELECT count(*) FROM STUDENT current WHERE NEW.IDGROUP=current.IDGROUP) >= 6 ;" +
+                " END;");
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS " + TRIGGER_LESS_THREE_STUDENTS +
+                " BEFORE DELETE ON " + TABLE_STUDENT_NAME +
+                " Begin select RAISE (ABORT,'Не может быть меьнше трёх студентов') WHERE (SELECT count(*) FROM STUDENT current WHERE OLD.IDGROUP=current.IDGROUP) <= 3 ;" +
+                " END;");
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS " + TRIGGER_FOR_CREATE_VIEW +
+                " AFTER INSERT ON " + TABLE_STUDENT_NAME +
+                " BEGIN " +
+                " UPDATE " + TABLE_GROUP_NAME + " SET " + GROUP_COLUMN_HEAD + "=new." + STUDENT_COLUMN_IDSTUDENT + " WHERE " + TABLE_GROUP_NAME + "." + GROUP_COLUMN_IDGROUP + "; " +
+                " END;");
     }
 }
 

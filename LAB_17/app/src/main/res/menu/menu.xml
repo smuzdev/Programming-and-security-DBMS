@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/select_operation"
+        android:enabled="true"
+        android:title="SELECT"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/batch_insert"
+        android:enabled="true"
+        android:title="BATCH INSERT"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/call_procedure"
+        android:enabled="true"
+        android:title="CALL PROCEDURE"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/call_function"
+        android:enabled="true"
+        android:title="CALL FUNCTION"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/truncate"
+        android:enabled="true"
+        android:title="TRUNCATE"
+        app:showAsAction="never" />
+</menu>

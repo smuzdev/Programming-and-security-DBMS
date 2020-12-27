@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">LAB_10</string>
+    <string name="name">Name</string>
+    <string name="group_id">Group ID</string>
+    <string name="input_data">Input data:</string>
+    <string name="add">Add</string>
+    <string name="students">Students</string>
+    <string name="groups">Groups</string>
+    <string name="faculty">Faculty</string>
+    <string name="course">Course</string>
+    <string name="specialization">Specialization</string>
+    <string name="headman">Headman</string>
+</resources>

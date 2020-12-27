@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">LAB_11</string>
+
+    <string name="title">Multi-table queries in SQLite database</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year </string>
+
+    <string name="period">Period</string>
+    <string name="fromDate">From: </string>
+    <string name="toDate">To: </string>
+    <string name="from">From </string>
+    <string name="to">To </string>
+    <string name="actions">Actions</string>
+
+    <string name="avgMarks">List of average marks</string>
+    <string name="bestStudents">Best students</string>
+    <string name="badStudents">With lower than 4 mark</string>
+    <string name="avgGroups">Average marks of groups</string>
+    <string name="faculties">List of faculties</string>
+    <string name="count">Count</string>
+
+
+    <string name="select">Select</string>
+    <string name="first">Method 1</string>
+    <string name="second">Method 2</string>
+
+</resources>    

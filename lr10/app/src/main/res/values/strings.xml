@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">STUDENTS LIST</string>
+    <string name="submit">Submit</string>
+    <string name="course">Course</string>
+    <string name="faculty">Faculty</string>
+    <string name="name">Name</string>
+    <string name="head_id">Head ID</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="course1">Course:</string>
+    <string name="faculty1">Faculty:</string>
+    <string name="head">Head</string>
+    <string name="students">Students</string>
+    <string name="group">Group</string>
+</resources>

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">LAB_09</string>
+
+    <!--TextViews & EditTexts-->
+    <string name="text_id">ID</string>
+    <string name="text_float">Float</string>
+    <string name="text">Text</string>
+
+    <!--Buttons-->
+    <string name="insert_button">Insert</string>
+    <string name="select_button">Select</string>
+    <string name="select_raw_button">Select raw</string>
+    <string name="update_button">Update</string>
+    <string name="delete_button">Delete</string>
+
+</resources>

@@ -51,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     static String TRIGGER_MORE_SIX_STUDENTS = "MORE_SIX_STUDENTS";
     static String TRIGGER_LESS_THREE_STUDENTS = "LESS_THREE_STUDENTS";
-    static String TRIGGER_FOR_CREATE_VIEW = "TRIGGER_FOR_CREATE_VIEW";
+    static String TRIGGER_FOR_CREATE_VIEW= "UPDATE_DATA";
 
 
     public DatabaseHelper(Context context) {
@@ -277,7 +277,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //INSERT INTO STUDENT (IDGROUP, NAME, BIRTHDATE, ADDRESS) VALUES(1,'TEST','TEST','TEST')
-    //DELETE FROM STUDENT WHERE IDSTUDENT= 3
+    //DELETE FROM STUDENT WHERE IDSTUDENT=11
 
     private void createTrigger(SQLiteDatabase db) {
         db.execSQL("CREATE TRIGGER IF NOT EXISTS " + TRIGGER_MORE_SIX_STUDENTS +

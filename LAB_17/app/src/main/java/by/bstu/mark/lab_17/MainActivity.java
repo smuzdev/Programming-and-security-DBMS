@@ -222,7 +222,6 @@ public class MainActivity extends AppCompatActivity {
                                 //RETURN @num;
                                 //END;
 
-
                                 Statement statement = connection.createStatement();
                                 ResultSet resultSet = statement.executeQuery("SELECT dbo.NumProducts() AS num;");
                                 Integer num = null;
